@@ -1,0 +1,11 @@
+==> raw/moving_clint_imu.csv <==
+qx, qy, qz, qw, linA_x, linA_y, linA_z, corA_x, corA_y, corA_z, ts, qpc
+
+==> raw/moving_clint_track.csv <==
+qx, qy, qz, qw, px, py, pz, track, lag, adjusted, lastIMU, qpc
+
+==> raw/still_imu.csv <==
+qx, qy, qz, qw, linA_x, linA_y, linA_z, corA_x, corA_y, corA_z, ts, qpc
+
+==> raw/still_track.csv <==
+qx, qy, qz, qw, px, py, pz, track, lag, adjusted, lastIMU, qpc
