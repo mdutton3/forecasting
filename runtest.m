@@ -7,19 +7,33 @@ clear t;
 
 idx = 1;
 
-for i = 4:4:100
-    t{idx++} = testpoly( x, i,  4, 2 );
+sserr = nan(3,1);
+tvar = nan(3,1);
+for i = 3:3
+    S = testlls_cross( x, x, 10, i, 4 );
+    %t{idx++} = S;
+    sserr(i,1) = sumsq( S.err(:,end) );
+    tvar(i,1) = var( S.err(:,end) );
+    i, sserr(i,1), tvar(i,1)
 end
 
-%t{idx++} = testpoly( x, 12,  4, 1 );
-%t{idx++} = testpoly( x, 12,  4, 3 );
-%t{idx++} = testpoly( x, 12,  4, 4 );
-%t{idx++} = testpoly( x, 20,  4, 4 );
+figure(1);
+%plot( sserr );
 
-%t{idx++} = testpoly( x, 4,  4, 2 );
-%t{idx++} = testpoly( x, 12,  4, 2 );
-%t{idx++} = testpoly( x, 20,  4, 3 );
+figure(2);
+%plot( tvar );
 
+%% Best of class
+t{idx++} = testpoly( x, 2,  4, 1 );
+t{idx++} = testpoly( x, 8,  4, 2 );
+t{idx++} = testpoly( x, 15,  4, 3 );
+t{idx++} = testpoly( x, 22,  4, 4 );
+t{idx++} = testlls( xhat, 12,  4 ); % Higher histlen values are better
+t{idx++} = testlls( x, 16,  4 ); % Higher histlen values are better
+t{idx++} = testlls_cross( xhat, x, 11, i, 4 );
+t{idx++} = testlls_cross( x, x, 10, i, 4 );
+
+%% Previous tests
 %t{idx++} = testlls( xhat, 12, 4 );
 %t{idx++} = testlls_cross( xhat, x, 50, 12, 4 );
 %t{idx++} = testlls_cross( xhat, x, 100, 12, 4 );
@@ -51,9 +65,20 @@ end
 
 sumsq( err );
 
-serr = sort(err);
-serridx = repmat( linspace(0,1,rows(serr))', 1, columns(serr));
+function plotserr( err, legnames )
+    serr = sort(err);
+    serridx = repmat( linspace(0,1,rows(serr))', 1, columns(serr));
 
-plot( serr, serridx ); legend(l); grid("on");
+    figure(10);
+    plot( serr, serridx ); legend(legnames); grid("on");
+    title( "Error CDF" );
 
+    figure(11);
+    [NN,XX] = hist(serr,50,1); plot( XX, NN ); legend(legnames); grid("on");
+    title( "Error Histogram" );
+end
+
+if( columns(err) < 30 )
+    plotserr( err, l )
+end
 
