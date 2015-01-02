@@ -22,10 +22,11 @@ idx = 0;
 histlen = max( [ 2 8 15 ]' );
 predlen = 4;
 N = neighbors( x, histlen+1+predlen );
+Nhat = neighbors( xhat, histlen+1+predlen );
 
 t{++idx} = predpoly( N, 2,  predlen, 1 ); 
 t{++idx} = predpoly( N, 8,  predlen, 2 );
-t{++idx} = predpoly( N, 15, predlen, 3 );
+%t{++idx} = predpoly( N, 15, predlen, 3 );
 %t{++idx} = predpoly( N, 22, predlen, 4 );
 
 S = t{1};
@@ -65,6 +66,7 @@ function plotrow( M, fitmse, l, i )
     %figure;
     %bar( fitmse(i,:) ); title(sprintf("MSE of poly fit at row %u", i));
 end
+
 
 %figure; plotrow( M, fitmse, l, imin );
 %figure; plotrow( M, fitmse, l, imax );
