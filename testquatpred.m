@@ -1,6 +1,8 @@
 % Why doesn't this have syntax highlighting?
 function t= testquatpred( Qraw )
-
+    AAraw = nan( rows(Qraw), 3 );
+    for i = 1:rows(Qraw)
+        
     function S = predpolyquat( Nx, Ny, Nz, Nw, histlen, predlen, order )
         nrows=rows(Nx);
         ncols=predlen+1;
